@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background Shape -->
+    <path d="M15 8C15 5.79086 16.7909 4 19 4H101C103.209 4 105 5.79086 105 8V32C105 34.2091 103.209 36 101 36H19C16.7909 36 15 34.2091 15 32V8Z" fill="url(#gradient)"/>
+    
+    <!-- S Letter -->
+    <path d="M35 14C35 14 45 14 45 20C45 26 35 26 35 26M35 26C35 26 45 26 45 32" stroke="white" stroke-width="3" stroke-linecap="round"/>
+    
+    <!-- G Letter -->
+    <path d="M65 14C65 14 55 14 55 20C55 26 65 26 65 26C65 26 65 29 65 32M65 26L60 26" stroke="white" stroke-width="3" stroke-linecap="round"/>
+    
+    <!-- Dot -->
+    <circle cx="75" cy="20" r="2" fill="white"/>
+    
+    <!-- Gradient Definition -->
+    <defs>
+        <linearGradient id="gradient" x1="0" y1="20" x2="120" y2="20" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#4F46E5"/>
+            <stop offset="1" stop-color="#818CF8"/>
+        </linearGradient>
+    </defs>
+</svg>
