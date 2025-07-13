@@ -21,11 +21,13 @@ const setTheme = (theme) => {
 setTheme(getCurrentTheme());
 
 // Theme toggle handler
-themeToggle.addEventListener('click', () => {
-    const currentTheme = getCurrentTheme();
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-});
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = getCurrentTheme();
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        setTheme(newTheme);
+    });
+}
 
 // Listen for system theme changes
 prefersDarkScheme.addEventListener('change', (e) => {
@@ -37,10 +39,12 @@ prefersDarkScheme.addEventListener('change', (e) => {
 const hamburger = document.querySelector('.hamburger');
 const navLinks = document.querySelector('.nav-links');
 
-hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    hamburger.classList.toggle('active');
-});
+if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        hamburger.classList.toggle('active');
+    });
+}
 
 // Smooth Scrolling for Navigation Links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -135,13 +139,17 @@ revealOnScroll(); // Initial check
 
 // Form Submission
 const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = contactForm.elements['name'].value.trim();
+        const email = contactForm.elements['email'].value.trim();
+        const message = contactForm.elements['message'].value.trim();
 
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    // Add your form submission logic here
-    alert('Thank you for your message! I will get back to you soon.');
-    contactForm.reset();
-});
+        const mailto = `mailto:sumitgupta19900@gmail.com?subject=${encodeURIComponent(name + ' sent you a message')}&body=${encodeURIComponent(message + '\n\nReply to: ' + email)}`;
+        window.location.href = mailto;
+    });
+}
 
 // Skills Animation
 const skillItems = document.querySelectorAll('.skill-item');
@@ -211,20 +219,23 @@ const addRippleEffect = (e) => {
     const size = Math.max(rect.width, rect.height);
     const x = e.clientX - rect.left - size / 2;
     const y = e.clientY - rect.top - size / 2;
-    
+
     ripple.style.width = ripple.style.height = `${size}px`;
     ripple.style.left = `${x}px`;
     ripple.style.top = `${y}px`;
     ripple.classList.add('ripple');
-    
+
     button.appendChild(ripple);
-    
+
     setTimeout(() => ripple.remove(), 600);
 };
 
-document.querySelectorAll('.download-btn, #contact-form button').forEach(button => {
-    button.addEventListener('click', addRippleEffect);
-});
+const rippleButtons = document.querySelectorAll('.download-btn, #contact-form button');
+if (rippleButtons && rippleButtons.length > 0) {
+    rippleButtons.forEach(button => {
+        button.addEventListener('click', addRippleEffect);
+    });
+}
 
 // Add this to your existing styles.css
 const styleSheet = document.createElement('style');
@@ -352,19 +363,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add click event listeners
     educationItems.forEach(item => {
         const header = item.querySelector('.education-header');
-        header.addEventListener('click', () => handleItemClick(item));
-        
-        // Add hover effect for year badge
-        const yearBadge = item.querySelector('.year-badge');
-        header.addEventListener('mouseenter', () => {
-            yearBadge.style.transform = 'scale(1.1)';
-        });
-        
-        header.addEventListener('mouseleave', () => {
-            if (!item.classList.contains('active')) {
-                yearBadge.style.transform = 'scale(1)';
+        if (header) {
+            header.addEventListener('click', () => handleItemClick(item));
+            // Add hover effect for year badge
+            const yearBadge = item.querySelector('.year-badge');
+            if (yearBadge) {
+                header.addEventListener('mouseenter', () => {
+                    yearBadge.style.transform = 'scale(1.1)';
+                });
+                header.addEventListener('mouseleave', () => {
+                    if (!item.classList.contains('active')) {
+                        yearBadge.style.transform = 'scale(1)';
+                    }
+                });
             }
-        });
+        }
     });
     
     // Open first item by default
@@ -388,7 +401,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Scroll to specific item
     const scrollToItem = (index) => {
+        if (!scrollContainer) return;
+        if (items.length === 0) return;
+        if (index < 0 || index >= items.length) return;
         const item = items[index];
+        if (!item) return;
         const scrollLeft = item.offsetLeft - (scrollContainer.offsetWidth - item.offsetWidth) / 2;
         scrollContainer.scrollTo({
             left: scrollLeft,
@@ -404,30 +421,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Handle button clicks
-    prevButton?.addEventListener('click', () => {
-        currentIndex = Math.max(0, currentIndex - 1);
-        scrollToItem(currentIndex);
-    });
+    if (prevButton) {
+        prevButton.addEventListener('click', () => {
+            currentIndex = Math.max(0, currentIndex - 1);
+            scrollToItem(currentIndex);
+        });
+    }
 
-    nextButton?.addEventListener('click', () => {
-        currentIndex = Math.min(items.length - 1, currentIndex + 1);
-        scrollToItem(currentIndex);
-    });
+    if (nextButton) {
+        nextButton.addEventListener('click', () => {
+            currentIndex = Math.min(items.length - 1, currentIndex + 1);
+            scrollToItem(currentIndex);
+        });
+    }
 
     // Handle scroll events
     let isScrolling;
-    scrollContainer.addEventListener('scroll', () => {
-        clearTimeout(isScrolling);
-        isScrolling = setTimeout(() => {
-            const itemWidth = items[0].offsetWidth;
-            const scrollPosition = scrollContainer.scrollLeft;
-            const newIndex = Math.round(scrollPosition / itemWidth);
-            if (newIndex !== currentIndex) {
-                currentIndex = newIndex;
-                updateDots(currentIndex);
-            }
-        }, 100);
-    });
+    if (scrollContainer) {
+        scrollContainer.addEventListener('scroll', () => {
+            clearTimeout(isScrolling);
+            isScrolling = setTimeout(() => {
+                const itemWidth = items[0].offsetWidth;
+                const scrollPosition = scrollContainer.scrollLeft;
+                const newIndex = Math.round(scrollPosition / itemWidth);
+                if (newIndex !== currentIndex) {
+                    currentIndex = newIndex;
+                    updateDots(currentIndex);
+                }
+            }, 100);
+        });
+    }
 
     // Handle keyboard navigation
     document.addEventListener('keydown', (e) => {
@@ -441,5 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Initial scroll to first item
-    scrollToItem(0);
+    if (items.length > 0) {
+        scrollToItem(0);
+    }
 }); 
