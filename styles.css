@@ -203,21 +203,28 @@ body {
     flex: 1;
     text-align: center;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .hero-image img {
     max-width: 400px;
-    width: 100%;
+    width: 400px;
     height: 400px;
     object-fit: cover;
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    object-position: center;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
     box-shadow: var(--box-shadow);
     transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: block;
+    margin: 0 auto;
+    overflow: hidden;
 }
 
 .hero-image:hover img {
     transform: scale(1.02);
-    border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
 }
 
 /* Social Links and Download Button */
@@ -1165,6 +1172,8 @@ h2::after {
     object-fit: contain;
     flex-shrink: 0;
 }
+
+
 
 .skill-item i {
     font-size: 20px;
