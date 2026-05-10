@@ -80,7 +80,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // Typing Animation
 const typingText = document.querySelector('.typing-text');
-const phrases = ["I'm a Full Stack Developer", "I'm a Java Backend Developer", "I'm a Frontend Developer"];
+const phrases = [
+    "Building Scalable Backend Solutions",
+    "Optimizing Enterprise Applications",
+    "Engineering High-Performance APIs",
+    "Crafting Seamless Full-Stack Experiences"
+];
 let phraseIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
